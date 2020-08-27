@@ -14,5 +14,5 @@ void console()
 void main()
 {
   console();
-  sdffs
+  
 }
