@@ -16,7 +16,16 @@ void console()
 {
   printf("%s> ",path);
   char command[250];
+  char cmdword[20];
   scanf("%s",command);
+  int i=0;
+  while(command[i]!=' ')
+  {
+    cmdword[i]=command[i];
+    i++;
+  }
+  i++;
+  printf("%s\n",cmdword);
 }
 void main()
 {
