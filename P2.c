@@ -9,7 +9,6 @@ struct Dir
 {
     char dirname[200];
     char files[20][200] ;
-    char subdirs[20][200];
     int parent_id;
     int file_count;
     int subdir_count;
@@ -21,14 +20,35 @@ struct Dir d[30];
 
 void make_file(int i)
 {
-  char dirname1[200];
+  char filename1[200];
   int j=0;
   while(command[i]!='\0')
   {
-    dirname1[j]=command[i];
+    filename1[j]=command[i];
     j++;
     i++;
   }
+  if(d[0].file_count==20)
+    printf("No more available space for files\n");
+  for(int k=0;k<20;k++)
+  {
+    if(strcmp(filename1,d[i].files[k])==0)
+    {
+      printf("This file already exists\n");
+      console();
+    }
+  }
+  for(int k=0;k<20;k++)
+  {
+    if(strcmp(d[i].files[k],"\0")==0)
+    {
+      d[i].file_count++;
+      strcpy(d[i].files[k],filename1);
+      printf("File created\n");
+      console();
+    }
+  }
+
 
 }
 
@@ -43,16 +63,17 @@ void make_directory(int i)
     j++;
     i++;
   }
-  for(int i=0;i<30;i++)
+  for(int k=0;k<30;k++)
   {
-    if(strcmp(d[i].dirname,"\0")==0)
+    if(strcmp(d[k].dirname,"\0")==0)
     {
-      strcpy(d[i].dirname,dirname1);
-      d[i].dir_id=i;
-      d[i].file_count=0;
-      d[i].subdir_count=0;
-      d[i].parent_id=current_dir_id;
-      printf("New directory '%s' created.\n",d[i].dirname);
+      strcpy(d[k].dirname,dirname1);
+      d[k].dir_id=i;
+      d[k].file_count=0;
+      d[k].subdir_count=0;
+      d[k].parent_id=current_dir_id;
+      d[i].subdir_count++;
+      printf("New directory '%s' created.\n",d[k].dirname);
       console();
     }
   }
@@ -101,7 +122,7 @@ void console()
   gets(command);
   char cmdword[20];
   int i=0;
-  while(command[i]!=' ')
+  while(command[i]!=' ' && command[i]!='\0')
   {
     cmdword[i]=command[i];
     i++;
@@ -114,7 +135,11 @@ void console()
     make_directory(i);
   else if(strcmp(cmdword,"touch")==0)
     make_file(i);
-
+  else if(strcmp(cmdword,"exit")==0)
+  {
+    printf("Program Terminated\n");
+    exit(0);
+  }
   else
   {
     printf("Unrecognised command\n");
