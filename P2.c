@@ -29,15 +29,18 @@ void change_directory(int i)
 void console()
 {
   printf("%s> ",path);
+  fflush(stdin);
   gets(command);
   char cmdword[20];
   int i=0;
   while(command[i]!=' ')
   {
     cmdword[i]=command[i];
+    printf("\n%c\n",cmdword[i]);
     i++;
+
   }
-  puts(cmdword);
+  printf("\n%s\n",cmdword);
   i++;
 
 
