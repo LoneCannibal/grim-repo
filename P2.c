@@ -2,6 +2,7 @@
 #include<stdio.h>
 #include<string.h>
 char path[200];
+char command[50];
 void console();
 struct Dir
 {
@@ -12,21 +13,45 @@ struct Dir
     int subdir_count;
 };
 struct Dir d[20];
+
+void change_directory(int i)
+{
+  printf("REACHED");
+  while(command[i]!='\0')
+  {
+    printf("%c",command[i]);
+    i++;
+  }
+}
+
+
 void console()
 {
   printf("%s> ",path);
-  char command[250];
   char cmdword[20];
   scanf("%s",command);
   int i=0;
-  while(command[i]!=' ')
+  while(command[i]!=' '|| cmdword[i]!='\0')
   {
     cmdword[i]=command[i];
     i++;
   }
   i++;
-  printf("%s\n",cmdword);
+
+
+  if(strcmp(cmdword,"cd")==0)
+  {
+    printf("REACHED");
+    change_directory(i);
+  }
+  else
+  {
+    printf("Unrecognised command\n");
+    console();
+  }
 }
+
+
 void main()
 {
   strcpy(d[0].dirname,"Console/root");
