@@ -9,6 +9,7 @@ struct Dir
     char dirname[200];
     char files[20][200] ;
     char subdirs[20][200];
+    char parent[100];
     int file_count;
     int subdir_count;
 };
@@ -28,20 +29,21 @@ void change_directory(int i)
 void console()
 {
   printf("%s> ",path);
+  gets(command);
   char cmdword[20];
-  scanf("%s",command);
   int i=0;
-  while(command[i]!=' '|| cmdword[i]!='\0')
+  while(command[i]!=' ')
   {
     cmdword[i]=command[i];
     i++;
   }
+  puts(cmdword);
   i++;
 
 
   if(strcmp(cmdword,"cd")==0)
   {
-    printf("REACHED");
+
     change_directory(i);
   }
   else
