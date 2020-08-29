@@ -37,7 +37,7 @@ void make_directory(int i)
       d[i].file_count=0;
       d[i].subdir_count=0;
       d[i].parent_id=current_dir_id;
-      printf("New directory "%s" created.\n",d[i].dirname);
+      printf("New directory '%s' created.\n",d[i].dirname);
       console();
     }
   }
@@ -58,7 +58,21 @@ void change_directory(int i)
     j++;
     i++;
   }
-  //NEED TO ADD MORE STUFF HERE
+  for(int i=0;i<30;i++)
+  {
+    if(strcmp(dirname1,d[i].dirname)==0)
+    {
+      current_dir_id=0;
+      path[strlen(path)]='/';
+      int k=strlen(path),l=0;
+      while(dirname1[l]!='\0')
+      {
+        path[k]=dirname1[l];
+        k++;
+        l++;
+      }
+    }
+  }
   console();
 }
 
