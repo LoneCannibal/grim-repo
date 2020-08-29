@@ -118,7 +118,7 @@ void change_directory(int i)
 void console()
 {
   printf("%s> ",path);
-  fflush(stdin);
+  scanf("%d ", &x); //To prevent newline character error
   gets(command);
   char cmdword[20];
   int i=0;
