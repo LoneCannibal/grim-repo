@@ -18,6 +18,21 @@ struct Dir
 struct Dir d[30];
 
 
+
+void make_file(int i)
+{
+  char dirname1[200];
+  int j=0;
+  while(command[i]!='\0')
+  {
+    dirname1[j]=command[i];
+    j++;
+    i++;
+  }
+
+}
+
+
 void make_directory(int i)
 {
   char dirname1[200];
@@ -71,8 +86,10 @@ void change_directory(int i)
         k++;
         l++;
       }
+      console();
     }
   }
+  printf("No such directory exists\n");
   console();
 }
 
@@ -91,12 +108,12 @@ void console()
 
   }
   i++;
-
-
   if(strcmp(cmdword,"cd")==0)
     change_directory(i);
   else if(strcmp(cmdword,"mkdir")==0)
     make_directory(i);
+  else if(strcmp(cmdword,"touch")==0)
+    make_file(i);
 
   else
   {
