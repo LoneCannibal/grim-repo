@@ -19,7 +19,14 @@ struct Dir d[30];
 
 void help()
 {
-  printf("HELP\n");
+  printf("HELP MENU\n");
+  printf("cd                         :Change directory\n");
+  printf("ls                         :Directory listing\n");
+  printf("mkdir 'directory_name'     :Make directory\n");
+  printf("touch 'file_name'          :Make file\n");
+  printf("rmdir 'directory_name'     :Remove directory\n");
+  printf("rm 'file_name'             :Remove file\n");
+  console();
 }
 
 void remove_file(int i)
