@@ -238,7 +238,7 @@ void console()
 
   else
   {
-    printf("Unrecognised command\nType 'help' to see list of commands or type the command again.\n");
+    printf("UNRECOGNISED COMMAND\nType 'help' to see list of commands or type the command again.\n");
     console();
   }
 }
