@@ -17,10 +17,21 @@ struct Dir
 };
 struct Dir d[30];
 
+void back()
+{
+  current_dir_id=d[current_dir_id].parent_id;
+  int k=strlen(path)-1;
+  while(path[k]!='/')
+    k--;
+  path[k]='\0';
+  console();
+}
+
 void help()
 {
   printf("HELP MENU\n");
   printf("cd                         :Change directory\n");
+  printf("cd..                       :Go to parent directory\n");
   printf("ls                         :Directory listing\n");
   printf("mkdir 'directory_name'     :Make directory\n");
   printf("touch 'file_name'          :Make file\n");
@@ -55,8 +66,6 @@ void remove_file(int i)
 
 }
 
-
-
 void remove_directory(int i)
 {
   char dirname1[200];
@@ -80,8 +89,6 @@ void remove_directory(int i)
   printf("Diretory not found\n");
   console();
 }
-
-
 void listing()
 {
   printf("Displaying %d directories and %d file/s\n",d[current_dir_id].subdir_count,d[current_dir_id].file_count);
@@ -97,9 +104,6 @@ void listing()
   }
   console();
 }
-
-
-
 void make_file(int i)
 {
   char filename1[200];
@@ -130,11 +134,8 @@ void make_file(int i)
       console();
     }
   }
-
-
+  console();
 }
-
-
 void make_directory(int i)
 {
   char dirname1[200];
@@ -171,9 +172,6 @@ void make_directory(int i)
   console();
 
 }
-
-
-
 void change_directory(int i)
 {
   char dirname1[200];
@@ -203,8 +201,6 @@ void change_directory(int i)
   printf("No such directory exists\n");
   console();
 }
-
-
 void console()
 {
   printf("%s> ",path);
@@ -235,6 +231,8 @@ void console()
     remove_directory(i);
   else if(strcmp(cmdword,"rm")==0)
     remove_file(i);
+  else if(strcmp(cmdword,"cd..")==0)
+    back();
   else if(strcmp(cmdword,"help")==0)
     help();
 
@@ -244,8 +242,6 @@ void console()
     console();
   }
 }
-
-
 int main()
 {
   strcpy(d[0].dirname,"Console/root");
