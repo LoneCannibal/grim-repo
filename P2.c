@@ -17,6 +17,32 @@ struct Dir
 };
 struct Dir d[30];
 
+
+void remove_directory(int i)
+{
+  char dirname1[200];
+  int j=0;
+  while(command[i]!='\0')
+  {
+    dirname1[j]=command[i];
+    j++;
+    i++;
+  }
+  for(int j=0;j<30;j++)
+  {
+    if(strcmp(dirname1,d[j].dirname)==0 && d[j].parent_id==current_dir_id)
+    {
+      d[j].dirname[0]='\0';
+      d[current_dir_id].subdir_count--;
+      printf("Deleted directory %s\n",dirname1);
+      console();
+    }
+  }
+  printf("Diretory not found\n");
+  console();
+}
+
+
 void listing()
 {
   printf("Displaying %d directories and %d file/s\n",d[current_dir_id].subdir_count,d[current_dir_id].file_count);
@@ -166,6 +192,8 @@ void console()
   }
   else if(strcmp(cmdword,"ll")==0||strcmp(cmdword,"ls")==0)
     listing();
+  else if(strcmp(cmdword,"rmdir")==0)
+    remove_directory(i);
 
 
   else
