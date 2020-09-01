@@ -17,6 +17,38 @@ struct Dir
 };
 struct Dir d[30];
 
+void help()
+{
+  printf("HELP\n");
+}
+
+void remove_file(int i)
+{
+  char filename1[200];
+  int j=0;
+  while(command[i]!='\0')
+  {
+    filename1[j]=command[i];
+    j++;
+    i++;
+  }
+
+  for(int k=0;k<20;k++)
+  {
+    if(strcmp(filename1,d[current_dir_id].files[k])==0)
+    {
+      d[current_dir_id].files[k][0]='\0';
+      d[current_dir_id].file_count--;
+      printf("File %s deleted\n",filename1);
+      console();
+    }
+    printf("File not found\n");
+    console();
+  }
+
+}
+
+
 
 void remove_directory(int i)
 {
@@ -194,11 +226,14 @@ void console()
     listing();
   else if(strcmp(cmdword,"rmdir")==0)
     remove_directory(i);
-
+  else if(strcmp(cmdword,"rm")==0)
+    remove_file(i);
+  else if(strcmp(cmdword,"help")==0)
+    help();
 
   else
   {
-    printf("Unrecognised command\nType 'help' to see list of commands\n");
+    printf("Unrecognised command\nType 'help' to see list of commands or type the command again.\n");
     console();
   }
 }
