@@ -207,12 +207,14 @@ void console()
   gets(command);
   char cmdword[20];
   int i=0;
+  strcpy(cmdword, "");
   while(command[i]!=' ' && command[i]!='\0')
   {
     cmdword[i]=command[i];
     i++;
 
   }
+  cmdword[i] = '\0';
   i++;
   if(strcmp(cmdword,"cd")==0)
     change_directory(i);
