@@ -1,6 +1,7 @@
 //Implementing single level directory structure
 #include<stdio.h>
 #include<string.h>
+#include<stdlib.h>
 char files[50][50];
 char dir_name[50];
 int search()
@@ -15,8 +16,8 @@ int search()
 }
 void menu()
 {
-  printf("\n1.Insert file\n2.Search file\n3.Delete file\n4.Display contents\n0.EXIT\nCHOOSE OPTION: ");
-  int option;
+  printf("\n\n\n1.Insert file\n2.Search file\n3.Delete file\n4.Display contents\n0.EXIT\nCHOOSE OPTION: ");
+  int option=-1,s;
   scanf("%d",&option);
   switch(option)
   {
@@ -39,32 +40,33 @@ void menu()
               }
             printf("FILE NOT FOUND");
             break;
-    case 3: int s=search();
+    case 3: s=search();
             if(s!=-1)
             {
-              files[s]="\0";
+              files[s][0]='\0';
               printf("FILE DELETED");
               menu();
             }
             printf("FILE DOES NOT EXIST");
             break;
-
-    case 4: printf("Contents of Directory %s",dir_name);
+    case 4: printf("Contents of Directory %s\n",dir_name);
             for(int i=0;i<50;i++)
             {
               if(strcmp(files[i],"\0")!=0)
                 printf("%s\n",files[i]);
             }
+            menu();
             break;
+    case 0:exit(0);
     default: menu();
+    break;
   }
-
-
+  menu();
 }
 int main()
 {
-  menu();
   printf("Enter the name of directory ");
   scanf("%s",dir_name);
+  menu();
   return 0;
 }
