@@ -107,7 +107,8 @@ void menu()
                 }
                 if(strcmp(dir_name,"#FOUND")!=0)
                   printf("FILE NOT FOUND");
-                menu();
+                break;
+        default: menu();
   }
   menu();
 }
