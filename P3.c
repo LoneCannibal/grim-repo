@@ -10,7 +10,7 @@ struct  dir
 struct dir d[50];
 void menu()
 {
-  printf("\n\n\n1.Create Directory\n2.Create File\n3.Display files\n4.Delete directory\n5.Delete file\n5.Search\n0.EXIT\nCHOOSE OPTION: ");
+  printf("\n\n\n1.Create Directory\n2.Create File\n3.Display files\n4.Delete directory\n5.Delete file\n6.Search\n0.EXIT\n\nCHOOSE OPTION: ");
   int option;
   char dir_name[50],file_name[50];
   scanf("%d",&option);
@@ -38,9 +38,11 @@ void menu()
                 scanf("%s",file_name);
                 for(int j=0;j<50;j++)
                   if(strcmp(d[i].files[j],"\0")==0)
+                  {
                     strcpy(d[i].files[j],file_name);
-                printf("FILE CREATED");
-                menu();
+                    printf("FILE CREATED");
+                    menu();
+                  }
               }
             }
             printf("DIRECTORY DOES NOT EXIST");
@@ -64,8 +66,8 @@ void menu()
               for(int i=0;i<50;i++)
                 if(strcmp(d[i].dir_name,dir_name)==0)
                 {
-                  strcpy(d[i].dirname,"\0");
-                  prinf("FILE DELETED");
+                  strcpy(d[i].dir_name,"\0");
+                  printf("DIRECTORY DELETED");
                   menu();
                 }
               break;
@@ -90,6 +92,22 @@ void menu()
                 }
               printf("DIRECTORY DOES NOT EXIST");
               break;
+        case 6: printf("Enter file to search for: ");
+                scanf("%s",file_name);
+                for(int i=0;i<50;i++)
+                {
+                  for(int j=0;j<50;j++)
+                  {
+                    if(strcmp(d[i].files[j],file_name)==0)
+                    {
+                      printf("File '%s' found in dir '%s'\n",file_name,d[i].dir_name);
+                      strcpy(dir_name,"#FOUND");
+                    }
+                  }
+                }
+                if(strcmp(dir_name,"#FOUND")!=0)
+                  printf("FILE NOT FOUND");
+                menu();
   }
   menu();
 }
