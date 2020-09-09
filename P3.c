@@ -21,9 +21,9 @@ void menu()
     case 1: printf("Enter the name of the directory: ");
             scanf("%s",dir_name);
             for(int i=0;i<50;i++)
-              if(strcmp(d.dir_name[i],"\0")==0)
+              if(strcmp(d[i].dir_name,"\0")==0)
               {
-                d.dir_name[i]=dir_name;
+                strcpy(d[i].dir_name,dir_name);
                 menu();
               }
             printf("NO MORE SPACE LEFT");
@@ -32,16 +32,23 @@ void menu()
             scanf("%s",dir_name);
             for(int i=0;i<50;i++)
             {
-              if(strcmp(d[i].dir_name)==0)
+              if(strcmp(d[i].dir_name,dir_name)==0)
               {
                 printf("Enter the filename: ");
-                scanf("%d",file_name);
-                for(int i=0;i,50;i++)
-
+                scanf("%s",file_name);
+                for(int j=0;j<50;j++)
+                  if(strcmp(d[i].files[j],"\0")==0)
+                    strcpy(d[i].files[j],file_name);
+                printf("FILE CREATED");
+                menu();
               }
             }
+            printf("DIRECTORY DOES NOT EXIST");
+            break;
+
 
   }
+  menu();
 
 }
 
