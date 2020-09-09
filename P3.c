@@ -10,7 +10,7 @@ struct  dir
 struct dir d[50];
 void menu()
 {
-  printf("\n\n\n1.Create Directory\n2.Create File\n3.Create\n4.Delete diretory\n5.Delete file\n5.Search\n0.EXIT\nCHOOSE OPTION: ");
+  printf("\n\n\n1.Create Directory\n2.Create File\n3.Display files\n4.Delete directory\n5.Delete file\n5.Search\n0.EXIT\nCHOOSE OPTION: ");
   int option;
   char dir_name[50],file_name[50];
   scanf("%d",&option);
@@ -45,13 +45,54 @@ void menu()
             }
             printf("DIRECTORY DOES NOT EXIST");
             break;
-
-
+      case 3: printf("Select directory to display files: ");
+              scanf("%s",dir_name);
+              for(int i=0;i<50;i++)
+              {
+                if(strcmp(d[i].dir_name,dir_name)==0)
+                {
+                  for(int j=0;j<50;j++)
+                      if(strcmp(d[i].files[j],"\0")!=0)
+                        printf("%s\n",d[i].files[j]);
+                  menu();
+                }
+              }
+              printf("DIRECTORY DOES NOT EXIST");
+              break;
+      case 4: printf("Select directory to delete: ");
+              scanf("%s",dir_name);
+              for(int i=0;i<50;i++)
+                if(strcmp(d[i].dir_name,dir_name)==0)
+                {
+                  strcpy(d[i].dirname,"\0");
+                  prinf("FILE DELETED");
+                  menu();
+                }
+              break;
+      case 5: printf("Select directory to delete file: ");
+              scanf("%s",dir_name);
+              for(int i=0;i<50;i++)
+                {
+                  if(strcmp(d[i].dir_name,dir_name)==0)
+                  {
+                    printf("Enter the filename: ");
+                    scanf("%s",file_name);
+                    for(int j=0;j<50;j++)
+                      if(strcmp(d[i].files[j],file_name)==0)
+                      {
+                        strcpy(d[i].files[j],"\0");
+                        printf("FILE DELETED");
+                        menu();
+                      }
+                    printf("FILE DOES NOT EXIST");
+                    menu();
+                  }
+                }
+              printf("DIRECTORY DOES NOT EXIST");
+              break;
   }
   menu();
-
 }
-
 int main()
 {
   menu();
