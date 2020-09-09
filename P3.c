@@ -59,7 +59,7 @@ void menu()
                   menu();
                 }
               }
-              printf("Directory does not exist");
+              printf("DIRECTORY DOES NOT EXIST");
               break;
       case 4: printf("Select directory to delete: ");
               scanf("%s",dir_name);
