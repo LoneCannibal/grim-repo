@@ -31,7 +31,7 @@ void help()
 {
   printf("HELP MENU\n");
   printf("cd                         :Change directory\n");
-  printf("cd..                       :Go to parent directory\n");
+  printf("cd ..                       :Go to parent directory\n");
   printf("ls                         :Directory listing\n");
   printf("mkdir 'directory_name'     :Make directory\n");
   printf("touch 'file_name'          :Make file\n");
@@ -205,6 +205,8 @@ void console()
 {
   printf("%s> ",path);
   gets(command);
+  if(strcmp(command,"cd ..")==0)
+    back();
   char cmdword[20];
   int i=0;
   strcpy(cmdword, "");
@@ -233,7 +235,7 @@ void console()
     remove_directory(i);
   else if(strcmp(cmdword,"rm")==0)
     remove_file(i);
-  else if(strcmp(cmdword,"cd..")==0)
+  else if(strcmp(cmdword,"cd ..")==0)
     back();
   else if(strcmp(cmdword,"help")==0)
     help();
