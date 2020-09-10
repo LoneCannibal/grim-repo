@@ -235,8 +235,6 @@ void console()
     remove_directory(i);
   else if(strcmp(cmdword,"rm")==0)
     remove_file(i);
-  else if(strcmp(cmdword,"cd ..")==0)
-    back();
   else if(strcmp(cmdword,"help")==0)
     help();
 
