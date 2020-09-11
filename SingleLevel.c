@@ -44,7 +44,7 @@ void menu()
             if(s!=-1)
             {
               files[s][0]='\0';
-              printf("FILE DELETED");
+              printf("FILE IS DELETED");
               menu();
             }
             printf("FILE DOES NOT EXIST");
