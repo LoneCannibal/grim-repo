@@ -1,4 +1,4 @@
-//Implementing single level directory structure
+//Implementing a single level directory structure
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
