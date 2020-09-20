@@ -2,11 +2,12 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h> 
+char colours[5][10]={"[0;31m","[0;32m","[0;33m","[0;34m","[0;36m"};
+int number_of_processes,resource_types,allocated[20][5],max[20][5],total_resources[5];
+bool finished[20];
 void main()
 {
-    char colours[5][10]={"[0;31m","[0;32m","[0;33m","[0;34m","[0;36m"};
-    int number_of_processes,resource_types,allocated[20][5],max[20][5],total_resources[5];
-    bool finished_execution[20];
+    
     printf("\033[1;36mHow many processes are running? ");
     scanf("%d",&number_of_processes);
     printf("Enter the number of resource types ");
@@ -43,19 +44,22 @@ void main()
         scanf("%d",&total_resources[i]);
     }
     bool possible=true;
-    for(int i=0;i<number_of_processes;i++)
+    while(!finished_execution())
     {
-        for(j=0;j<resource_types;j++)
+        for(int i=0;i<number_of_processes;i++)
         {
-            if(allocated[i][j]+max[i][j]>total_resources[j])
+            for(int j=0;j<resource_types;j++)
             {
-                possible=false;
+                if(allocated[i][j]+max[i][j]>total_resources[j])
+                    possible=false;
+            }
+            if(possible==true)
+            {
+                execute(i);
+                printf("\033[1;36mPROCESS %d FINISHED EXECUTION",i);
             }
         }
-        if(possible==true)
-        {
-            
-        }
     }
+
 
 }
