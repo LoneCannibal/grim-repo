@@ -72,7 +72,7 @@ void main()
                 if(max[i][j]-allocated[i][j]>total_resources[j] && finished[i]==false)
                     possible=false;
             }
-            if(possible==true)
+            if(possible==true&&finished[i]==false)
             {
                 execute(i);
                 if(finished[i]==false)
