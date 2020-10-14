@@ -2,7 +2,9 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
-int locations[30],n,start,end,head_loc;
+#include<stdbool.h>
+int locations[30],n,end,head_loc;
+bool served[30];
 void fcfs()
 {
     printf("THE ORDER IS:\n%d->",head_loc);
@@ -33,36 +35,21 @@ void menu()
 }
 void main()
 {
-    char loc_string[100],start_end_string[10],temp[10];
+    char loc_string[100],temp[10];
     int i=0,j=0,k=0;
-    printf("Enter the start and end positions of the disk seperated by spaces: ");
-    fgets(start_end_string,10,stdin);
-    while(start_end_string[i]!='\0')
-    {
-        if(start_end_string[i]==' ')
-        {
-            start=atoi(temp);
-            strcpy(temp,"");
-            k=0;
-        }
-        else
-            temp[k++]=start_end_string[i];
-        i++;
-    }
-    end=atoi(temp);
-    if(start>end)
-    {
-        printf("ERROR OCCURED\n");
-        exit(0);
-    }
+    strcpy(temp,"");
+    printf("Enter the end position of the disk: ");
+    scanf("%d",&end);
     printf("\nEnter the locations seperated by spaces: ");
+    fgets(loc_string,100,stdin);
     fgets(loc_string,100,stdin);
     i=0,j=0,k=0;
     while(loc_string[i]!='\0')
     {
         if(loc_string[i]==' ')
         {
-            locations[j]=atoi(temp);
+            sscanf(temp, "%d", &locations[j]);
+            printf("CHECK %s",&temp);    
             strcpy(temp,"");
             k=0;
             j++;
@@ -71,7 +58,7 @@ void main()
             temp[k++]=loc_string[i];
         i++;
     }
-    locations[j]=atoi(temp);
+    sscanf(temp, "%d", &locations[j]);
     n=j+1;
     menu();
 }
