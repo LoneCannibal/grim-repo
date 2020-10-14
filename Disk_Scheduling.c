@@ -5,11 +5,25 @@
 int locations[30],n,start,end,head_loc;
 void menu()
 {
+    int input;
     printf("Enter the head location");
     scanf("%d",&head_loc);  
-    prinTf("CHOOSE ALGORITHM\n1.FCFS\n2.SSTF\n3.SCAN\n4.CSCAN");
-
-    
+    printf("\n1.FCFS\n2.SSTF\n3.SCAN\n4.CSCAN\nCHOOSE ALGORITHM: ");
+    scanf("%d",&input);
+    switch(input)
+    {
+        case 1:fcfs();
+            break;
+        case 2:sstf();
+            break;
+        case 3:scan();
+            break;
+        case 4:cscan();
+            break;
+        default:menu();
+        menu();
+    }
+        
 }
 void main()
 {
