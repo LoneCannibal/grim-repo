@@ -10,7 +10,11 @@ void fcfs()
     printf("THE ORDER IS:\n%d->",head_loc);
     for(int i=0;i<n;i++)
         printf("%d->",locations[i]);
-    printf("END\n");
+    printf("STOP\n");
+}
+void sstf()
+{
+    
 }
 void menu()
 {
@@ -19,6 +23,7 @@ void menu()
     scanf("%d",&head_loc);  
     printf("\n1.FCFS\n2.SSTF\n3.SCAN\n4.CSCAN\nCHOOSE ALGORITHM: ");
     scanf("%d",&input);
+    printf("\n\n");
     switch(input)
     {
         case 1:fcfs();
@@ -41,7 +46,7 @@ void main()
     printf("Enter the end position of the disk: ");
     scanf("%d",&end);
     printf("\nEnter the locations seperated by spaces: ");
-    fgets(loc_string,100,stdin);
+    fgets(loc_string,100,stdin);//Extra statement because of strange error
     fgets(loc_string,100,stdin);
     i=0,j=0,k=0;
     while(loc_string[i]!='\0')
@@ -49,7 +54,6 @@ void main()
         if(loc_string[i]==' ')
         {
             sscanf(temp, "%d", &locations[j]);
-            printf("CHECK %s",&temp);    
             strcpy(temp,"");
             k=0;
             j++;
