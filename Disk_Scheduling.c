@@ -17,15 +17,13 @@ void fcfs()
     printf("THE ORDER IS:\n%d->",head_loc);
     for(int i=0;i<n;i++)
         printf("%d->",locations[i]);
-    printf("STOP\n");
-    menu();
 }
 void sstf()
 {
     printf("THE ORDER IS:\n%d->",head_loc);
     while(!completed())
     {
-        int min=9999999,serve_index=-1;
+        int min=2147483647,serve_index=-1;
         for(int i=0;i<n;i++)
         {
             if(min>abs(locations[i]-head_loc) &&served[i]==false)
@@ -38,13 +36,16 @@ void sstf()
         printf("%d->",head_loc);
         served[serve_index]=true;
     }
-    printf("STOP");
-    menu();
 }
+void scan()
+{
+    printf("Work in Progress");
+}
+
 void menu()
 {
     int input;
-    printf("\n\nEnter the head location");
+    printf("\n\nEnter the head location: ");
     scanf("%d",&head_loc);  
     printf("\n1.FCFS\n2.SSTF\n3.SCAN\n4.CSCAN\nCHOOSE ALGORITHM: ");
     scanf("%d",&input);
@@ -55,13 +56,14 @@ void menu()
             break;
         case 2:sstf();
             break;
-        //case 3:scan();
+        case 3:scan();
             break;
         //case 4:cscan();
             break;
         default:menu();
-        menu();
     }
+    printf("STOP");
+    menu();
 }
 void main()
 {
