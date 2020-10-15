@@ -51,7 +51,7 @@ void sstf()
 void scan()
 {
     sort();
-    printf("HEAD IS MOVING FROM L TO R\nTHE ORDER IS:\n%d->",head_loc);
+    printf("HEAD IS CURRENTLY MOVING FROM L TO R\nTHE ORDER IS:\n%d->",head_loc);
     int i=0,temp=-1;
     while(locations[i]<head_loc)
         i++;
@@ -69,6 +69,26 @@ void scan()
     {
         printf("%d->",locations[i]);
         i--;
+    }
+}
+void cscan()
+{
+    sort();
+    printf("HEAD IS CURRENTLY MOVING FROM L TO R\nTHE ORDER IS:\n%d->",head_loc);
+    int i=0,temp=-1;
+    while(locations[i]<head_loc)
+        i++;
+    while(i!=n)
+    {
+        printf("%d->",locations[i]);
+        i++;
+    }
+    printf("%d->0->",end);
+    i=0;
+    while(locations[i]<head_loc)
+    {
+        printf("%d->",locations[i]);
+        i++;
     }
     
 }
@@ -112,7 +132,7 @@ void menu()
             break;
         case 3:scan();
             break;
-        //case 4:cscan();
+        case 4:cscan();
             break;
         default:menu();
     }
