@@ -11,10 +11,13 @@ void fcfs()
     for(int i=0;i<n;i++)
         printf("%d->",locations[i]);
     printf("STOP\n");
+    menu();
 }
 void sstf()
 {
+    printf("Work in progress");
     
+    menu();
 }
 void menu()
 {
