@@ -3,7 +3,7 @@
 #include<string.h>
 #include<stdlib.h>
 #include<stdbool.h>
-int locations[30],n,end,head_loc;
+int locations[30],locations2[35],n,n2,end,head_loc;
 bool served[30];
 bool completed()
 {
@@ -11,6 +11,13 @@ bool completed()
         if(served[i]==false)
             return false;
     return true;
+}
+int time_taken()
+{
+    int sum=0;
+    for(int i=0;i<n2-1;i++)
+        sum=sum+abs(locations2[i]-locations2[i+1]);
+    return sum;
 }
 void sort()
 {
@@ -27,11 +34,17 @@ void fcfs()
 {
     printf("THE ORDER IS:\n%d->",head_loc);
     for(int i=0;i<n;i++)
+    {
         printf("%d->",locations[i]);
-}
+        locations2[i+1]=locations[i];
+    }
+ }
 void sstf()
 {
     printf("THE ORDER IS:\n%d->",head_loc);
+    int q=0;
+    locations2[q+1]=head_loc;
+    q++;
     while(!completed())
     {
         int min=2147483647,serve_index=-1;
@@ -52,28 +65,37 @@ void scan()
 {
     sort();
     printf("HEAD IS CURRENTLY MOVING FROM L TO R\nTHE ORDER IS:\n%d->",head_loc);
-    int i=0,temp=-1;
+    int i=0,temp=-1,q=0;
     while(locations[i]<head_loc)
         i++;
     temp=i;
     while(i!=n)
     {
         printf("%d->",locations[i]);
+        locations2[q+1]=locations[i];
+        q++;
         i++;
     }
     printf("%d->",end);
+    n2++;
+    locations2[q+1]=end;
+    q++;
     i=temp;
     if(temp-1>=0)
         i=temp-1;
+        
     while(i>=0)
     {
         printf("%d->",locations[i]);
+        locations2[q+1]=locations[i];
+        q++;
         i--;
     }
 }
 void cscan()
 {
     sort();
+    int q=0;
     printf("HEAD IS CURRENTLY MOVING FROM L TO R\nTHE ORDER IS:\n%d->",head_loc);
     int i=0,temp=-1;
     while(locations[i]<head_loc)
@@ -81,18 +103,26 @@ void cscan()
     while(i!=n)
     {
         printf("%d->",locations[i]);
+        locations2[q+1]=locations[i];
+        q++;
         i++;
     }
     printf("%d->0->",end);
+    locations2[q+1]=end;
+    q++;
+    n2++;
     i=0;
+    n2++;
+    locations2[q+1]=0;
+    q++;
     while(locations[i]<head_loc)
     {
         printf("%d->",locations[i]);
+        locations2[q+1]=locations[i];
+        q++;
         i++;
     }
-    
 }
-
 void menu()
 {
     char loc_string[100],temp[10];
@@ -124,6 +154,8 @@ void menu()
     printf("\n1.FCFS\n2.SSTF\n3.SCAN\n4.CSCAN\nCHOOSE ALGORITHM: ");
     scanf("%d",&input);
     printf("\n\n");
+    locations2[0]=head_loc;
+    n2=n+1;
     switch(input)
     {
         case 1:fcfs();
@@ -137,6 +169,8 @@ void menu()
         default:menu();
     }
     printf("STOP");
+    printf("\n\nSEEK TIME: %d",time_taken());
+    printf("\nAVERAGE SEEK TIME: %d",time_taken()/n);
     menu();
 }
 void main()
