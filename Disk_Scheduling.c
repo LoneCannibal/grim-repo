@@ -149,13 +149,13 @@ void menu()
     }
     sscanf(temp, "%d", &locations[j]);
     n=j+1;
+    n2=n+1;
     printf("Enter the head location: ");
     scanf("%d",&head_loc);  
     printf("\n1.FCFS\n2.SSTF\n3.SCAN\n4.CSCAN\nCHOOSE ALGORITHM: ");
     scanf("%d",&input);
     printf("\n\n");
     locations2[0]=head_loc;
-    n2=n+1;
     switch(input)
     {
         case 1:fcfs();
