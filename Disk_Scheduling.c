@@ -15,19 +15,10 @@ bool completed()
 int time_taken()
 {
     int sum=0;
-    for(int i=0;i<n2-1;i++)
-        sum=sum+abs(locations2[i]-locations2[i+1]);
+    for(int i=0;i<n-1;i++)
+        sum=sum+abs(locations[i]-locations[i+1]);
     return sum;
 }
-void prepare()
-{
-    locations[n-1]=head_loc;
-    locations[n]=0;
-    locations[n+1]=end;
-    sort();
-    unique();
-}
-
 void sort()
 {
     for(int i=0;i<n-1;i++)
@@ -41,40 +32,46 @@ void sort()
     for(int i=0;i<n;i++)
         printf("%d ",locations[i]);
  }
+void unique()
+{
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            if(i!=j&&locations[i]==locations[j])
+            {
+                int k=n-1;
+                while(k!=j)
+                {
+                    locations[k]=locations[k+1];
+                    k--;
+                }
+                n--;
+            }
+        }
+    }
+}
+void prepare()
+{
+    locations[n-1]=head_loc;
+    locations[n]=0;
+    locations[n+1]=end;
+    n=n+3;
+    sort();
+    unique();
+}
+
+
 void fcfs()
 {
     printf("THE ORDER IS:\n%d->",head_loc);
     for(int i=0;i<n;i++)
-    {
-        printf("%d->",locations[i]);
-        locations2[i+1]=locations[i];
-    }
- }
-void sstf()
-{
-    printf("THE ORDER IS:\n%d->",head_loc);
-    int q=0;
-    locations2[q+1]=head_loc;
-    q++;
-    while(!completed())
-    {
-        int min=2147483647,serve_index=-1;
-        for(int i=0;i<n;i++)
-        {
-            if(min>abs(locations[i]-head_loc) &&served[i]==false)
-            {
-                min=abs(locations[i]-head_loc);
-                serve_index=i;
-            }
-        }
-        head_loc=locations[serve_index];
-        printf("%d->",head_loc);
-        served[serve_index]=true;
-    }
+    printf("%d->",locations[i]);
 }
+
 void scan()
 {
-    sort();
+    prepare();
     printf("HEAD IS CURRENTLY MOVING FROM L TO R\nTHE ORDER IS:\n%d->",head_loc);
     int i=0,temp=-1,q=0;
     while(locations[i]<head_loc)
@@ -83,30 +80,20 @@ void scan()
     while(i!=n)
     {
         printf("%d->",locations[i]);
-        locations2[q+1]=locations[i];
-        q++;
         i++;
     }
-    printf("%d->",end);
-    n2++;
-    locations2[q+1]=end;
-    q++;
     i=temp;
     if(temp-1>=0)
         i=temp-1;
-        
     while(i>=0)
     {
         printf("%d->",locations[i]);
-        locations2[q+1]=locations[i];
-        q++;
         i--;
     }
 }
 void cscan()
 {
-    sort();
-    int q=0;
+    prepare();
     printf("HEAD IS CURRENTLY MOVING FROM L TO R\nTHE ORDER IS:\n%d->",head_loc);
     int i=0,temp=-1;
     while(locations[i]<head_loc)
@@ -114,23 +101,12 @@ void cscan()
     while(i!=n)
     {
         printf("%d->",locations[i]);
-        locations2[q+1]=locations[i];
-        q++;
         i++;
     }
-    printf("%d->0->",end);
-    locations2[q+1]=end;
-    q++;
-    n2++;
     i=0;
-    n2++;
-    locations2[q+1]=0;
-    q++;
     while(locations[i]<head_loc)
     {
         printf("%d->",locations[i]);
-        locations2[q+1]=locations[i];
-        q++;
         i++;
     }
 }
@@ -160,32 +136,25 @@ void menu()
     }
     sscanf(temp, "%d", &locations[j]);
     n=j+1;
-    n2=n+1;
-    for(int m=0;m>n;m++)
-        printf("%d   ",locations[m]);
     printf("Enter the head location: ");
     scanf("%d",&head_loc);
-    locations2[0]=head_loc;
-    printf("\n1.FCFS\n2.SSTF\n3.SCAN\n4.CSCAN\nCHOOSE ALGORITHM: ");
+    printf("\n1.FCFS\n2.SCAN\n3.CSCAN\n0.EXIT\nCHOOSE ALGORITHM: ");
     scanf("%d",&input);
     printf("\n\n");
     switch(input)
     {
         case 1:fcfs();
             break;
-        case 2:sstf();
+        case 2:scan();
             break;
-        case 3:scan();
+        case 3:cscan();
             break;
-        case 4:cscan();
-            break;
+        case 0: exit(0);
         default:menu();
     }
     printf("STOP");
     printf("\n\nSEEK TIME: %d",time_taken());
     printf("\nAVERAGE SEEK TIME: %d",time_taken()/n);
-    for(int m=0;m>n2;m++)
-        printf("%d   ",locations2[m]);
     menu();
 }
 void main()
