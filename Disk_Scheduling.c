@@ -19,6 +19,15 @@ int time_taken()
         sum=sum+abs(locations2[i]-locations2[i+1]);
     return sum;
 }
+void prepare()
+{
+    locations[n-1]=head_loc;
+    locations[n]=0;
+    locations[n+1]=end;
+    sort();
+    unique();
+}
+
 void sort()
 {
     for(int i=0;i<n-1;i++)
@@ -29,6 +38,8 @@ void sort()
                 locations[j]=locations[j+1];
                 locations[j+1]=temp;
             }
+    for(int i=0;i<n;i++)
+        printf("%d ",locations[i]);
  }
 void fcfs()
 {
@@ -138,7 +149,7 @@ void menu()
     {
         if(loc_string[i]==' ')
         {
-            sscanf(temp, "%d", &locations[j]);
+            sscanf(temp,"%d",&locations[j]);
             strcpy(temp,"");
             k=0;
             j++;
@@ -150,12 +161,14 @@ void menu()
     sscanf(temp, "%d", &locations[j]);
     n=j+1;
     n2=n+1;
+    for(int m=0;m>n;m++)
+        printf("%d   ",locations[m]);
     printf("Enter the head location: ");
-    scanf("%d",&head_loc);  
+    scanf("%d",&head_loc);
+    locations2[0]=head_loc;
     printf("\n1.FCFS\n2.SSTF\n3.SCAN\n4.CSCAN\nCHOOSE ALGORITHM: ");
     scanf("%d",&input);
     printf("\n\n");
-    locations2[0]=head_loc;
     switch(input)
     {
         case 1:fcfs();
@@ -171,6 +184,8 @@ void menu()
     printf("STOP");
     printf("\n\nSEEK TIME: %d",time_taken());
     printf("\nAVERAGE SEEK TIME: %d",time_taken()/n);
+    for(int m=0;m>n2;m++)
+        printf("%d   ",locations2[m]);
     menu();
 }
 void main()
