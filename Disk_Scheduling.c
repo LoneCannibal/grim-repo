@@ -2,12 +2,22 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
-int locations[30],n,end,head_loc;
-int time_taken()
+int locations[30],n,n2,end,head_loc,head_index;
+int time_taken(int mode)
 {
     int sum=0;
-    for(int i=0;i<n-1;i++)
-        sum=sum+abs(locations[i]-locations[i+1]);
+    if(mode==1)//FCFS mode
+    {
+        for(int i=0;i<n-1;i++)
+        {
+            sum=sum+abs(locations[i]-locations[i+1]);
+            printf("TEST %d ",abs(locations[i]-locations[i+1]));
+        }
+    }
+    else if(mode==2)//SCAN mode
+        sum=abs(head_loc-locations[n-1])+abs(locations[n-1]-locations[0]);
+    else//C SCAN mode
+        sum=abs(head_loc-end)+abs(0-end)+abs(0-locations[head_index-1]);
     return sum;
 }
 void sort()
@@ -24,9 +34,7 @@ void sort()
 void duplicate()
 {
     for(int i=0;i<n;i++)
-    {
         for(int j=0;j<n;j++)
-        {
             if(i!=j&&locations[i]==locations[j])
             {
                 int k;
@@ -34,8 +42,9 @@ void duplicate()
                 locations[k]=locations[k+1];
                 n--;
             }
-        }
-    }
+    for(int i=0;i<n;i++)
+        if(locations[i]==head_loc)
+            head_index=i;
 }
 void prepare(int mode)
 {
@@ -43,17 +52,15 @@ void prepare(int mode)
     {
         locations[n]=end;
         n=n+1;
-        sort();
-        duplicate();
     }
     else// C-SCAN
     {
         locations[n]=0;
         locations[n+1]=end;
         n=n+2;
-        sort();
-        duplicate();
     }
+    sort();
+    duplicate();
 }
 void fcfs()
 {
@@ -62,7 +69,6 @@ void fcfs()
     for(int i=0;i<n;i++)
     printf("%d->",locations[i]);
 }
-
 void scan()
 {
     prepare(1);
@@ -121,6 +127,7 @@ void menu()
         j++;
     }
     n=j;
+    n2=j;
     printf("Enter the head location: ");
     scanf("%d",&head_loc);
     locations[0]=head_loc;
@@ -139,8 +146,8 @@ void menu()
         default:menu();
     }
     printf("STOP");
-    printf("\n\nSEEK TIME: %d",time_taken());
-    printf("\nAVERAGE SEEK TIME: %d",time_taken()/n);
+    printf("\n\nSEEK TIME: %d",time_taken(input));
+    printf("\nAVERAGE SEEK TIME: %d",time_taken(input)/n2);
     menu();
 }
 void main()
