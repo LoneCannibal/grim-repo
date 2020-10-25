@@ -73,9 +73,7 @@ void scan()
 {
     prepare(1);
     printf("HEAD IS CURRENTLY MOVING FROM L TO R\nTHE ORDER IS:\n");
-    int i=0,temp=-1,q=0;
-    while(locations[i]<head_loc)
-        i++;
+    int i=head_index,temp=-1,q=0;
     temp=i;
     while(i!=n)
     {
@@ -95,9 +93,7 @@ void cscan()
 {
     prepare(2);
     printf("HEAD IS CURRENTLY MOVING FROM L TO R\nTHE ORDER IS:\n");
-    int i=0,temp=-1;
-    while(locations[i]<head_loc)
-        i++;
+    int i=head_index,temp=-1;
     while(i!=n)
     {
         printf("%d->",locations[i]);
