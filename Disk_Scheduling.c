@@ -2,16 +2,7 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
-#include<stdbool.h>
-int locations[30],locations2[35],n,n2,end,head_loc;
-bool served[30];
-bool completed()
-{
-    for(int i=0;i<n;i++)
-        if(served[i]==false)
-            return false;
-    return true;
-}
+int locations[30],n,end,head_loc;
 int time_taken()
 {
     int sum=0;
@@ -29,10 +20,8 @@ void sort()
                 locations[j]=locations[j+1];
                 locations[j+1]=temp;
             }
-    for(int i=0;i<n;i++)
-        printf("%d ",locations[i]);
  }
-void unique()
+void duplicate()
 {
     for(int i=0;i<n;i++)
     {
@@ -40,12 +29,9 @@ void unique()
         {
             if(i!=j&&locations[i]==locations[j])
             {
-                int k=n-1;
-                while(k!=j)
-                {
-                    locations[k]=locations[k+1];
-                    k--;
-                }
+                int k;
+                for(k=j;k<n;k++)
+                locations[k]=locations[k+1];
                 n--;
             }
         }
@@ -53,27 +39,26 @@ void unique()
 }
 void prepare(int mode)
 {
-    if(mode==0)//FCFS mode
+    if(mode==1)//SCAN
     {
-        for(int i=n-1;i>=0;i--)
-            locations[i+1]=locations[i];
-        locations[0]=head_loc;
-        n++;
-        unique();
+        locations[n]=end;
+        n=n+1;
+        sort();
+        duplicate();
     }
-    if(mode==1)// SCAN OR C-SCAN
+    else// C-SCAN
     {
-        locations[n-1]=head_loc;
         locations[n]=0;
         locations[n+1]=end;
-        n=n+3;
+        n=n+2;
         sort();
-        unique();
+        duplicate();
     }
 }
 void fcfs()
 {
-    printf("THE ORDER IS:\n%d->",head_loc);
+    duplicate();
+    printf("THE ORDER IS:\n");
     for(int i=0;i<n;i++)
     printf("%d->",locations[i]);
 }
@@ -81,7 +66,7 @@ void fcfs()
 void scan()
 {
     prepare(1);
-    printf("HEAD IS CURRENTLY MOVING FROM L TO R\nTHE ORDER IS:\n%d->",head_loc);
+    printf("HEAD IS CURRENTLY MOVING FROM L TO R\nTHE ORDER IS:\n");
     int i=0,temp=-1,q=0;
     while(locations[i]<head_loc)
         i++;
@@ -102,8 +87,8 @@ void scan()
 }
 void cscan()
 {
-    prepare(1);
-    printf("HEAD IS CURRENTLY MOVING FROM L TO R\nTHE ORDER IS:\n%d->",head_loc);
+    prepare(2);
+    printf("HEAD IS CURRENTLY MOVING FROM L TO R\nTHE ORDER IS:\n");
     int i=0,temp=-1;
     while(locations[i]<head_loc)
         i++;
@@ -122,9 +107,7 @@ void cscan()
 void menu()
 {
     char loc_string[100],temp[10];
-    int input,i=0,j=0,k=0;
-    for(int q=0;q<30;q++)
-        served[q]=false;
+    int input,i=0,j=1,k=0;
     printf("\n\nEnter the end position of the disk: ");
     scanf("%d",&end);
     printf("\nEnter the locations seperated by spaces: ");
@@ -137,9 +120,10 @@ void menu()
         token=strtok(NULL," ");
         j++;
     }
-    n=j+1;
+    n=j;
     printf("Enter the head location: ");
     scanf("%d",&head_loc);
+    locations[0]=head_loc;
     printf("\n1.FCFS\n2.SCAN\n3.CSCAN\n0.EXIT\nCHOOSE ALGORITHM: ");
     scanf("%d",&input);
     printf("\n\n");
