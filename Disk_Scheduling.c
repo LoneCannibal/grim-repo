@@ -51,17 +51,26 @@ void unique()
         }
     }
 }
-void prepare()
+void prepare(int mode)
 {
-    locations[n-1]=head_loc;
-    locations[n]=0;
-    locations[n+1]=end;
-    n=n+3;
-    sort();
-    unique();
+    if(mode==0)//FCFS mode
+    {
+        for(int i=n-1;i>=0;i--)
+            locations[i+1]=locations[i];
+        locations[0]=head_loc;
+        n++;
+        unique();
+    }
+    if(mode==1)// SCAN OR C-SCAN
+    {
+        locations[n-1]=head_loc;
+        locations[n]=0;
+        locations[n+1]=end;
+        n=n+3;
+        sort();
+        unique();
+    }
 }
-
-
 void fcfs()
 {
     printf("THE ORDER IS:\n%d->",head_loc);
@@ -71,7 +80,7 @@ void fcfs()
 
 void scan()
 {
-    prepare();
+    prepare(1);
     printf("HEAD IS CURRENTLY MOVING FROM L TO R\nTHE ORDER IS:\n%d->",head_loc);
     int i=0,temp=-1,q=0;
     while(locations[i]<head_loc)
@@ -93,7 +102,7 @@ void scan()
 }
 void cscan()
 {
-    prepare();
+    prepare(1);
     printf("HEAD IS CURRENTLY MOVING FROM L TO R\nTHE ORDER IS:\n%d->",head_loc);
     int i=0,temp=-1;
     while(locations[i]<head_loc)
@@ -121,20 +130,13 @@ void menu()
     printf("\nEnter the locations seperated by spaces: ");
     fgets(loc_string,100,stdin);//Extra statement because of strange error
     fgets(loc_string,100,stdin);
-    while(loc_string[i]!='\0')
+    char* token=strtok(loc_string," ");
+    while(token!=NULL)
     {
-        if(loc_string[i]==' ')
-        {
-            sscanf(temp,"%d",&locations[j]);
-            strcpy(temp,"");
-            k=0;
-            j++;
-        }
-        else
-            temp[k++]=loc_string[i];
-        i++;
+        sscanf(token,"%d",&locations[j]);
+        token=strtok(NULL," ");
+        j++;
     }
-    sscanf(temp, "%d", &locations[j]);
     n=j+1;
     printf("Enter the head location: ");
     scanf("%d",&head_loc);
