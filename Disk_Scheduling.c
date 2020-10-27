@@ -9,10 +9,7 @@ int time_taken(int mode)
     if(mode==1)//FCFS mode
     {
         for(int i=0;i<n-1;i++)
-        {
-            sum=sum+abs(locations[i]-locations[i+1]);
-            printf("TEST %d ",abs(locations[i]-locations[i+1]));
-        }
+         sum=sum+abs(locations[i]-locations[i+1]);
     }
     else if(mode==2)//SCAN mode
         sum=abs(head_loc-locations[n-1])+abs(locations[n-1]-locations[0]);
@@ -146,7 +143,8 @@ void menu()
     printf("\nAVERAGE SEEK TIME: %d",time_taken(input)/n2);
     menu();
 }
-void main()
+int main()
 {
     menu();
+    return 0;
 }
