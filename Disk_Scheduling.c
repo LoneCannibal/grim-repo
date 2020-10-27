@@ -105,8 +105,8 @@ void cscan()
 }
 void menu()
 {
-    char loc_string[100],temp[10];
-    int input,i=0,j=1,k=0;
+    char loc_string[100];
+    int input,i=0,j=1;
     printf("\n\nEnter the end position of the disk: ");
     scanf("%d",&end);
     printf("\nEnter the locations seperated by spaces: ");
