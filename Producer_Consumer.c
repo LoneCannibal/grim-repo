@@ -38,11 +38,11 @@ void *producer(void *var)
             buffer[++buffer_pointer]=input[input_pointer++];
             printf("Produced item %d at location %d\n",buffer[buffer_pointer],buffer_pointer);
             input_count--;
-            signal(&mutex);
+            signal(&mutex) ;
         }
         sleep(1);
     }
-    return NULL;
+    return NULL; 
 }
 int main()
 {
