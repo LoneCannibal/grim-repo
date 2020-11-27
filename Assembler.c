@@ -8,7 +8,6 @@ struct line
     char label[10];
     char opcode[10];
     char operand[10];
-
 } l[100];
 FILE *ptrin, *ptrinter,*ptrsymtab;
 int i=0;
@@ -31,30 +30,26 @@ void address_calc()
     int locctr;
     if(strcmp(l[0].opcode,"START")==0)
         locctr=hextodec(l[0].operand);
-    
     for(int j=0;j<i;j++)
     {
-            l[j].address=locctr;
-            fprintf(ptrinter,"%x %s %s %s\n",l[j].address,l[j].label,l[j].opcode,l[j].operand);
-            printf("%x %s %s %s\n",l[j].address,l[j].label,l[j].opcode,l[j].operand);
-    
-            if(strcmp(l[j].opcode,"RESW")==0)
-                locctr+=hextodec(l[j].operand)*3;
-            else if(strcmp(l[j].opcode,"RESB")==0)
-                locctr+=hextodec(l[j].operand);
-            else if(strcmp(l[j].opcode,"BYTE")==0)
-                locctr+=strlen(l[j].operand);
-            else if(strcmp(l[j].opcode,"START")==0)
-                 locctr=locctr;
-            else
-                locctr+=3;
-            
+        l[j].address=locctr;
+        fprintf(ptrinter,"%x %s %s %s\n",l[j].address,l[j].label,l[j].opcode,l[j].operand);
+        if(strcmp(l[j].label,"**")!=0 &&j!=0)
+            fprintf(ptrsymtab,"%s %x\n",l[j].label,l[j].address);
+        printf("%x %s %s %s\n",l[j].address,l[j].label,l[j].opcode,l[j].operand);
+        if(strcmp(l[j].opcode,"RESW")==0)
+            locctr+=hextodec(l[j].operand)*3;
+        else if(strcmp(l[j].opcode,"RESB")==0)
+            locctr+=hextodec(l[j].operand);
+        else if(strcmp(l[j].opcode,"BYTE")==0)
+            locctr+=strlen(l[j].operand);
+        else if(strcmp(l[j].opcode,"START")!=0)
+            locctr+=3;
     }
-            
 }
+
 void assemble()
 {
-    char data1[50],data2[50],data3[50];
     while(feof(ptrin)==0)
     {
        fscanf(ptrin,"%s%s%s",l[i].label,l[i].opcode,l[i].operand);
@@ -68,7 +63,6 @@ void assemble()
 
 int main()
 {
-   
     ptrin=fopen("./input.txt","r");
     ptrinter=fopen("./Intermediate.txt","w");
     ptrsymtab=fopen("./symtab.txt","w");
