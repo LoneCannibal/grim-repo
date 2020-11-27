@@ -11,7 +11,6 @@ struct line
 } l[100];
 FILE *ptrin, *ptrinter,*ptrsymtab;
 int i=0;
-
 int hextodec(char a[10])
 {
     int dec=0;
@@ -24,7 +23,6 @@ int hextodec(char a[10])
     }
     return dec;
 }
-
 void address_calc()
 {
     int locctr;
@@ -47,7 +45,6 @@ void address_calc()
             locctr+=3;
     }
 }
-
 void assemble()
 {
     while(feof(ptrin)==0)
@@ -60,7 +57,6 @@ void assemble()
     fclose(ptrinter);
     fclose(ptrsymtab);
 }
-
 int main()
 {
     ptrin=fopen("./input.txt","r");
