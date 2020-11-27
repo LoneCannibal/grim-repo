@@ -20,7 +20,7 @@ int hextodec(char a[10])
         if(a[j]>=48 && a[j]<59)
             dec=dec*16+(a[j]-48);
         else    
-            dec=dec*16+(a[j]-65+10);
+            dec=dec*16+(a[j]-97+10);
     }
     return dec;
 }
