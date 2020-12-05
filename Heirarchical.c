@@ -150,7 +150,7 @@ void make_directory(int i)
   {
     if(strcmp(d[k].dirname,dirname1)==0)
     {
-      printf("Directory already exists\n");
+      printf("Directory already eixsts\n");
       console();
     }
   }
@@ -204,19 +204,17 @@ void change_directory(int i)
 void console()
 {
   printf("%s> ",path);
-  gets(command);
+  strcpy(command,"");
+  fgets(command,100,stdin);
+  strtok(command, "\n");
   if(strcmp(command,"cd ..")==0)
     back();
   char cmdword[20];
   int i=0;
-  strcpy(cmdword, "");
-  while(command[i]!=' ' && command[i]!='\0')
-  {
-    cmdword[i]=command[i];
+  strcpy(cmdword, command);
+  char* token=strtok(cmdword," ");  
+  while(command[i]!=' ')
     i++;
-
-  }
-  cmdword[i] = '\0';
   i++;
   if(strcmp(cmdword,"cd")==0)
     change_directory(i);
