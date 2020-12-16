@@ -1,4 +1,4 @@
-//To implement one pass assembler
+//To implement pass one of two pass assembler
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
