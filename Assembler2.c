@@ -8,9 +8,10 @@ struct line
     char label[10];
     char operator[10];
     char operand[10];
+    char opcode[10];
 } l[100];
-FILE *ptrin, *ptrinter,*ptrsymtab;
-int i=0;
+FILE *ptrin, *ptrinter,*ptrsymtab,*ptrobj,*ptropcode;
+int i=0,last;
 int hextodec(char a[10])
 {
     int dec=0;
@@ -22,6 +23,17 @@ int hextodec(char a[10])
             dec=dec*16+(a[j]-97+10);
     }
     return dec;
+}
+void pass2()
+{
+    fprintf(ptrobj,"H^%s^00%x^0000%x\n",l[0].label,l[0].address,last-l[0].address);
+    fprintf(ptrobj,"T^%x^%x",l[0].address,last-l[0].address);
+    for(int j=1;j<=i;j++)
+        for(int k=1;k<=i;k++)
+                if(strcmp(l[j].operand,l[k].label)==0)
+                    fprintf(ptrobj,"^%s%x",l[j].opcode,l[k].address);
+    fprintf(ptrobj,"\nE^00%x",l[0].address);
+        
 }
 void address_calc()
 {
@@ -43,7 +55,20 @@ void address_calc()
             locctr+=strlen(l[j].operand);
         else if(strcmp(l[j].operator,"START")!=0)
             locctr+=3;
+         while(feof(ptropcode)==0)
+            {
+                char optemp[10];
+                char opcodetemp[10];
+                fscanf(ptropcode,"%s %s",optemp,opcodetemp);
+                if(strcmp(optemp,l[j].operator)==0)
+                    strcpy(l[j].opcode,opcodetemp);
+                
+            }
+        fclose(ptropcode);
+        ptropcode=fopen("./opcode.txt","r");
     }
+    last=locctr;
+    pass2();
 }
 void assemble()
 {
@@ -56,12 +81,16 @@ void assemble()
     fclose(ptrin);
     fclose(ptrinter);
     fclose(ptrsymtab);
+    fclose(ptrobj);
+    fclose(ptropcode);
 }
 int main()
 {
     ptrin=fopen("./input.txt","r");
     ptrinter=fopen("./Intermediate.txt","w");
     ptrsymtab=fopen("./symtab.txt","w");
+    ptrobj=fopen("./object_code.txt","w");
+    ptropcode=fopen("./opcode.txt","r");
     if(ptrin==NULL||ptrinter==NULL||ptrsymtab==NULL)
     {
         printf("Unable to find required files\n");
