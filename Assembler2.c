@@ -24,14 +24,31 @@ int hextodec(char a[10])
     }
     return dec;
 }
+
 void pass2()
 {
     fprintf(ptrobj,"H^%s^00%x^0000%x\n",l[0].label,l[0].address,last-l[0].address);
     fprintf(ptrobj,"T^%x^%x",l[0].address,last-l[0].address);
     for(int j=1;j<=i;j++)
+    {
         for(int k=1;k<=i;k++)
-                if(strcmp(l[j].operand,l[k].label)==0)
-                    fprintf(ptrobj,"^%s%x",l[j].opcode,l[k].address);
+        {
+            if(strcmp(l[j].operand,l[k].label)==0)
+                {
+                    if (strcmp(l[j].operator,"BYTE")==0)
+                    {
+                        fprintf(ptrobj,"^");
+                        for(int q=0;q<strlen(l[k].operand);q++)
+                            fprintf(ptrobj,"%x",l[k].operand[q]); //Converting each character in byte to ascii hex code
+                    }
+                    else
+                        fprintf(ptrobj,"^%s%x",l[j].opcode,l[k].address);
+                }
+        }
+        if(strcmp(l[j].operator,"WORD")==0)
+            fprintf(ptrobj,"^000000");
+        
+    }
     fprintf(ptrobj,"\nE^00%x",l[0].address);
         
 }
@@ -62,7 +79,6 @@ void address_calc()
                 fscanf(ptropcode,"%s %s",optemp,opcodetemp);
                 if(strcmp(optemp,l[j].operator)==0)
                     strcpy(l[j].opcode,opcodetemp);
-                
             }
         fclose(ptropcode);
         ptropcode=fopen("./opcode.txt","r");
