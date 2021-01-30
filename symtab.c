@@ -1,3 +1,4 @@
+//To implement the symtab search and input using hashing
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
