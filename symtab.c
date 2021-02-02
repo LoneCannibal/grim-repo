@@ -1,4 +1,3 @@
-//To implement the symtab search and input using hashing
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
@@ -56,7 +55,7 @@ void enter()
             s[i].address=address;
             strcpy(s[i].symbol,sym);
             count++;
-            display();
+            printf("\nSymbol was enterd\n");
             menu();
         }
         if(i==9)
@@ -65,7 +64,7 @@ void enter()
 }
 void menu()
 {
-    printf("1.Enter symbol\n2.Search for symbol\n3.Display symtab\n0.EXIT\nEnter the option: ");
+    printf("\n1.Enter symbol\n2.Search for symbol\n3.Display symtab\n0.EXIT\nEnter the option: ");
     int choice;
     scanf("%d",&choice);
     if(choice==1)
@@ -76,8 +75,7 @@ void menu()
         display();
     else if(choice==0)
         exit(0);
-    else
-        menu();
+    menu();
 }
 void main()
 {
